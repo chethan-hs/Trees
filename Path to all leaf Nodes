@@ -1,0 +1,123 @@
+package BinaryTree;
+
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Queue;
+
+public class PathToAllNodes {
+
+	class Node {
+
+		int data;
+		Node left;
+		Node right;
+		Node(int data){
+			this.data = data;
+		}	
+	}
+
+	Node root;
+
+
+
+	public void add(int data) {
+		Node newNode = new Node(data);
+		if(root == null)
+		{
+			root = newNode;
+			return;
+		}
+
+		Queue<Node> q = new LinkedList<>();
+		q.add(root);
+
+		while(!q.isEmpty()) {
+
+			Node temp = q.poll();
+
+			if(temp.left == null) {
+				temp.left = newNode;
+				return;
+			}else {
+				q.add(temp.left);
+			}
+
+
+			if(temp.right == null) {
+				temp.right = newNode;
+				return;
+			}else {
+				q.add(temp.right);
+			}
+		}		
+	}
+
+ 
+
+	public List<List<Integer>> getAllPaths() {
+
+		List<Integer> path = new ArrayList<>();
+		List<List<Integer>> allPaths = new ArrayList<>();
+		getAllPaths(root, path, allPaths);
+		return allPaths;
+	}
+
+
+	
+	/**
+	 * @param root
+	 * @param path
+	 * @param allPaths
+	 */
+	public void getAllPaths(Node root , List<Integer> path, List<List<Integer>> allPaths) {
+
+		if(root != null) {				
+			path.add(root.data);
+
+			if(root.left == null && root.right == null) {					
+				List<Integer> childPath = new ArrayList<>();
+				childPath.addAll(path);
+				allPaths.add(childPath);
+			}
+
+			getAllPaths(root.left, path, allPaths);
+
+			getAllPaths(root.right, path, allPaths);
+			path.remove(path.size()-1);
+		}			
+	}
+
+
+
+
+	public static void main(String[] args) {
+		int[] values = { 10, 15 , 20 , 25 , 30 , 40};
+		 
+/*
+		                     10
+		 
+				        15                 20
+
+				    25      30         40      
+
+		        
+		 */
+
+		 
+
+		PathToAllNodes pathToAllNodes = new PathToAllNodes();	
+		List<List<Integer>> allPaths = pathToAllNodes.getAllPaths();
+		
+		for(List<Integer> intList: allPaths) {
+			System.out.println();
+			intList.forEach(
+					
+					(x)-> {System.out.print("-->"+x);}
+					);			
+	 	}
+	}
+
+
+
+}
