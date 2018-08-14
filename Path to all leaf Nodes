@@ -94,8 +94,8 @@ public class PathToAllNodes {
 	public static void main(String[] args) {
 		int[] values = { 10, 15 , 20 , 25 , 30 , 40};
 		 
-/*
-		                     10
+                /*
+		                                 10
 		 
 				        15                 20
 
@@ -104,7 +104,9 @@ public class PathToAllNodes {
 		        
 		 */
 
-		 
+		 for(int value : values) {
+			pathToAllNodes.add(value);
+		}
 
 		PathToAllNodes pathToAllNodes = new PathToAllNodes();	
 		List<List<Integer>> allPaths = pathToAllNodes.getAllPaths();
